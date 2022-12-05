@@ -32,7 +32,7 @@ class TestDay5(unittest.TestCase):
 
     def test_execute_orders_for_cratemover_9001(self):
         ship = self.ship
-        ship.execute_orders_9001()
+        ship.execute_orders(cratemachine=9001)
         self.assertEqual(1, ship._stacks[0].size())
         self.assertEqual("[M]", ship._stacks[0].show_top_item())
         self.assertEqual(1, ship._stacks[1].size())

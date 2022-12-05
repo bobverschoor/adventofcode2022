@@ -50,21 +50,18 @@ class Ship:
         for stack in self._stacks:
             stack.reverse_order()
 
-    def execute_orders(self):
+    def execute_orders(self, cratemachine=9000):
         prog = re.compile(r"move (\d+) from (\d+) to (\d+)")
         for order in self._orders:
             execute = prog.match(order)
             if execute is not None:
-                self.move_nr_of_crates_from_stack_to_stack(int(execute.group(1)), int(execute.group(2)),
-                                                           int(execute.group(3)))
-
-    def execute_orders_9001(self):
-        prog = re.compile(r"move (\d+) from (\d+) to (\d+)")
-        for order in self._orders:
-            execute = prog.match(order)
-            if execute is not None:
-                self.move_simultaneous_nr_of_crates_from_stack_to_stack(int(execute.group(1)), int(execute.group(2)),
-                                                                        int(execute.group(3)))
+                if cratemachine == 9000:
+                    self.move_nr_of_crates_from_stack_to_stack(int(execute.group(1)), int(execute.group(2)),
+                                                               int(execute.group(3)))
+                else:
+                    self.move_simultaneous_nr_of_crates_from_stack_to_stack(int(execute.group(1)),
+                                                                            int(execute.group(2)),
+                                                                            int(execute.group(3)))
 
     def move_nr_of_crates_from_stack_to_stack(self, crates_nr, from_stack_nr, to_stack_nr):
         for nr in range(0, crates_nr):
@@ -89,6 +86,5 @@ if __name__ == '__main__':
     ship.read_input()
     ship.setup_crates()
     print(ship.show_top_stack())
-    # ship.execute_orders()
-    ship.execute_orders_9001()
+    ship.execute_orders(cratemachine=9001)
     print(ship.show_top_stack())
